@@ -23,13 +23,13 @@
             element : document.body,
             engine : engine,
             options : {
-                width : 1600,
-                height : 800,
+                width : 500,
+                height : 300,
                 wireframes : false
             }
         });
 
-        let ground = Matter.Bodies.rectangle(1200,500,300,20,{ isStatic: true});
+        let ground = Matter.Bodies.rectangle(400,150,130,5,{ isStatic: true});
         // let wallRight = Matter.Bodies.rectangle(700,400,10,1000,{ isStatic: true});
        
 
@@ -42,18 +42,18 @@
             }
         });
 
-        let stack= Matter.Composites.stack(1100,270,4,4,0,0, function(x,y){
-            return Matter.Bodies.polygon(x,y,8,30);
+        let stack= Matter.Composites.stack(350,15,4,4,0,0, function(x,y){
+            return Matter.Bodies.polygon(x,y,8,15);
         });
 
         let firing=false;
 
         
 
-        let ball= Matter.Bodies.circle(300,600,20);
+        let ball= Matter.Bodies.circle(100,180,10);
 
         let sling= Matter.Constraint.create({
-            pointA: {x:300,y:600},
+            pointA: {x:100,y:180},
             bodyB: ball,
             stiffness: 0.05
         })
@@ -67,9 +67,9 @@
         });
 
         Matter.Events.on(engine,'afterUpdate',function(){
-            if(firing && Math.abs(ball.position.x-300)<20 && Math.abs(ball.position.y-600)<20)
+            if(firing && Math.abs(ball.position.x-100)<10 && Math.abs(ball.position.y-180)<10)
             {
-               ball= Matter.Bodies.circle(300,600,20);
+               ball= Matter.Bodies.circle(100,180,10);
                Matter.World.add(engine.world,ball);
                sling.bodyB = ball;
                firing = false; 
